@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B5B3FBE1C22010700CA2E31 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5B3FBD1C22010700CA2E31 /* MapKit.framework */; };
 		6BE51D9A1C1F7BB8000D4A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE51D991C1F7BB8000D4A5E /* AppDelegate.swift */; };
 		6BE51D9C1C1F7BB8000D4A5E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE51D9B1C1F7BB8000D4A5E /* FirstViewController.swift */; };
 		6BE51D9E1C1F7BB8000D4A5E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE51D9D1C1F7BB8000D4A5E /* SecondViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B5B3FBD1C22010700CA2E31 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6BE51D961C1F7BB8000D4A5E /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE51D991C1F7BB8000D4A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BE51D9B1C1F7BB8000D4A5E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B5B3FBE1C22010700CA2E31 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +82,7 @@
 		6BE51D8D1C1F7BB8000D4A5E = {
 			isa = PBXGroup;
 			children = (
+				6B5B3FBD1C22010700CA2E31 /* MapKit.framework */,
 				6BE51D981C1F7BB8000D4A5E /* On the Map */,
 				6BE51DAF1C1F7BB8000D4A5E /* On the MapTests */,
 				6BE51DBA1C1F7BB8000D4A5E /* On the MapUITests */,
@@ -486,6 +490,7 @@
 				6BE51DC21C1F7BB8000D4A5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6BE51DC31C1F7BB8000D4A5E /* Build configuration list for PBXNativeTarget "On the MapTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +499,7 @@
 				6BE51DC51C1F7BB8000D4A5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6BE51DC61C1F7BB8000D4A5E /* Build configuration list for PBXNativeTarget "On the MapUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +508,7 @@
 				6BE51DC81C1F7BB8000D4A5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
