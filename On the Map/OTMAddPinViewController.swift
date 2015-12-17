@@ -23,7 +23,7 @@ class OTMAddPinViewController: UIViewController {
     
     @IBAction func dismissAddPin(sender: UIButton)
     {
-        self.parentViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.self.dismissViewControllerAnimated(true, completion: nil)
     }
     /*
     // MARK: - Navigation

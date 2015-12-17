@@ -23,7 +23,7 @@ class OTMTabBarController: UITabBarController {
     
     @IBAction func dismiss(sender: UIButton)
     {
-        self.parentViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func showAddPinView(sender: UIButton)

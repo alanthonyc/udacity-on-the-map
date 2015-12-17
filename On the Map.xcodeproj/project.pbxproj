@@ -10,6 +10,7 @@
 		6B5B3FBE1C22010700CA2E31 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5B3FBD1C22010700CA2E31 /* MapKit.framework */; };
 		6B5B3FC61C22191700CA2E31 /* OTMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B3FC51C22191700CA2E31 /* OTMTabBarController.swift */; };
 		6B5B3FC81C221D5B00CA2E31 /* OTMAddPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B3FC71C221D5B00CA2E31 /* OTMAddPinViewController.swift */; };
+		6B5B3FCA1C231E5200CA2E31 /* OTMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B3FC91C231E5200CA2E31 /* OTMLoginViewController.swift */; };
 		6BE51D9A1C1F7BB8000D4A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE51D991C1F7BB8000D4A5E /* AppDelegate.swift */; };
 		6BE51D9C1C1F7BB8000D4A5E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE51D9B1C1F7BB8000D4A5E /* FirstViewController.swift */; };
 		6BE51D9E1C1F7BB8000D4A5E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE51D9D1C1F7BB8000D4A5E /* SecondViewController.swift */; };
@@ -41,6 +42,7 @@
 		6B5B3FBD1C22010700CA2E31 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6B5B3FC51C22191700CA2E31 /* OTMTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMTabBarController.swift; sourceTree = "<group>"; };
 		6B5B3FC71C221D5B00CA2E31 /* OTMAddPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMAddPinViewController.swift; sourceTree = "<group>"; };
+		6B5B3FC91C231E5200CA2E31 /* OTMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMLoginViewController.swift; sourceTree = "<group>"; };
 		6BE51D961C1F7BB8000D4A5E /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE51D991C1F7BB8000D4A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BE51D9B1C1F7BB8000D4A5E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				6BE51D991C1F7BB8000D4A5E /* AppDelegate.swift */,
 				6BE51D9B1C1F7BB8000D4A5E /* FirstViewController.swift */,
 				6BE51D9D1C1F7BB8000D4A5E /* SecondViewController.swift */,
+				6B5B3FC91C231E5200CA2E31 /* OTMLoginViewController.swift */,
 				6B5B3FC51C22191700CA2E31 /* OTMTabBarController.swift */,
 				6B5B3FC71C221D5B00CA2E31 /* OTMAddPinViewController.swift */,
 				6BE51D9F1C1F7BB8000D4A5E /* Main.storyboard */,
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B5B3FC81C221D5B00CA2E31 /* OTMAddPinViewController.swift in Sources */,
+				6B5B3FCA1C231E5200CA2E31 /* OTMLoginViewController.swift in Sources */,
 				6B5B3FC61C22191700CA2E31 /* OTMTabBarController.swift in Sources */,
 				6BE51D9E1C1F7BB8000D4A5E /* SecondViewController.swift in Sources */,
 				6BE51D9A1C1F7BB8000D4A5E /* AppDelegate.swift in Sources */,
