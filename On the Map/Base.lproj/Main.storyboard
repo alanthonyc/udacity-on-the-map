@@ -10,7 +10,7 @@
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="OTMMapViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -19,36 +19,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="221" y="279" width="157.5" height="41.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <rect key="frame" x="203" y="329" width="194.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Now-K9-OKV" userLabel="MapBaseView">
+                                <rect key="frame" x="20" y="64" width="560" height="487"/>
+                                <color key="backgroundColor" red="0.60423966350000002" green="0.73412415740000003" blue="0.88627457620000005" alpha="1" colorSpace="deviceRGB"/>
+                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pyX-cG-QDm">
                                 <rect key="frame" x="20" y="64" width="560" height="487"/>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ety-a2-Tfy">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="Now-K9-OKV" secondAttribute="bottom" id="Fwj-DY-qRq"/>
                             <constraint firstItem="pyX-cG-QDm" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="ajT-dG-4ro"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
+                            <constraint firstItem="Now-K9-OKV" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="aqO-w7-mQ4"/>
+                            <constraint firstItem="Now-K9-OKV" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="bkv-uh-WW6"/>
+                            <constraint firstItem="Ety-a2-Tfy" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="cCo-hL-wRD"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="pyX-cG-QDm" secondAttribute="bottom" id="gec-gw-xch"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Now-K9-OKV" secondAttribute="trailing" id="lVK-Zr-E2K"/>
                             <constraint firstItem="pyX-cG-QDm" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="oee-6q-fBz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pyX-cG-QDm" secondAttribute="trailing" id="wjK-KP-Xfk"/>
+                            <constraint firstItem="Ety-a2-Tfy" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="zqG-0M-Dnl"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="first" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Ety-a2-Tfy" id="mb4-bW-hfb"/>
+                        <outlet property="baseView" destination="Now-K9-OKV" id="kCX-dm-Fc0"/>
+                        <outlet property="mapView" destination="pyX-cG-QDm" id="y4K-g5-gbx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>

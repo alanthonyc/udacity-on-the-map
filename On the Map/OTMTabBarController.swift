@@ -13,15 +13,16 @@ class OTMTabBarController: UITabBarController {
     var sessionId: NSString!
     var key: NSString!
     var expiration: NSString!
-    var students = [OTMStudent]()
+    var mapViewController: OTMMapViewController!
     
     // MARK: - Housekeeping
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.students = []
+        Student.Students = []
         self.loadStudentLocations()
+        self.mapViewController = self.viewControllers?.first as! OTMMapViewController
     }
 
     override func didReceiveMemoryWarning()
@@ -33,7 +34,9 @@ class OTMTabBarController: UITabBarController {
     
     @IBAction func reloadStudents(sender: UIButton)
     {
-        self.students = []
+        Student.Students = []
+        self.mapViewController.clearMap()
+        self.mapViewController.reloadMap()
         self.loadStudentLocations()
     }
     
@@ -82,10 +85,15 @@ class OTMTabBarController: UITabBarController {
             print("\(results)")
             for result in results {
                 let dict = result as? NSDictionary
-                let student = OTMStudent.init(initDict: dict!)
-                self.students.append(student)
+
+                let student = Student.OTMStudent.init(initDict: dict!)
+                Student.Students.append(student)
             }
-            print("Count: \(self.students.count)")
+            // TODO
+            print("Count: \(Student.Students.count)")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.mapViewController.addStudentLocations()
+            }
         }
         catch let JSONError as NSError {
             print("Load Students Failure: JSON Error - \(JSONError)")
