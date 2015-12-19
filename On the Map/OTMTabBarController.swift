@@ -10,6 +10,10 @@ import UIKit
 
 class OTMTabBarController: UITabBarController {
 
+    var sessionId: NSString!
+    var key: NSString!
+    var expiration: NSString!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

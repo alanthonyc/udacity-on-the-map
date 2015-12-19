@@ -208,7 +208,7 @@
         <!--Navigation Controller-->
         <scene sceneID="41j-5q-zB9">
             <objects>
-                <navigationController id="L0i-rn-my9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigationController" id="L0i-rn-my9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZKz-Gi-dbh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -264,7 +264,6 @@
                                         <state key="normal" title="Login"/>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="rUu-AN-mjj" eventType="touchUpInside" id="0bO-gX-byL"/>
-                                            <segue destination="L0i-rn-my9" kind="presentation" id="JF2-am-88M"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -276,6 +275,13 @@
                                     <constraint firstAttribute="trailing" secondItem="N0i-Nd-D7r" secondAttribute="trailing" id="pnm-LK-Ku1"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="utL-Kn-hT6">
+                                <rect key="frame" x="290" y="240" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="3z6-pp-RK5"/>
+                                    <constraint firstAttribute="height" constant="20" id="vAW-gO-prA"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -284,9 +290,11 @@
                             <constraint firstItem="JjN-FQ-bey" firstAttribute="trailing" secondItem="Xq1-1J-lrp" secondAttribute="trailingMargin" id="F0t-2g-MNl"/>
                             <constraint firstItem="im8-Yx-dp6" firstAttribute="top" secondItem="X1H-y4-GMQ" secondAttribute="bottom" constant="8" id="Hyg-Zd-aeC"/>
                             <constraint firstItem="cx3-6f-p6D" firstAttribute="leading" secondItem="Xq1-1J-lrp" secondAttribute="leadingMargin" id="IJs-O1-Dzb"/>
+                            <constraint firstItem="im8-Yx-dp6" firstAttribute="top" secondItem="utL-Kn-hT6" secondAttribute="bottom" constant="25" id="N0i-jU-CH3"/>
                             <constraint firstItem="im8-Yx-dp6" firstAttribute="leading" secondItem="Xq1-1J-lrp" secondAttribute="leadingMargin" id="PJg-9B-ePw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cx3-6f-p6D" secondAttribute="trailing" id="Qux-Ux-DpK"/>
                             <constraint firstItem="qKX-he-Gre" firstAttribute="centerX" secondItem="Xq1-1J-lrp" secondAttribute="centerX" id="ThP-c3-fzu"/>
+                            <constraint firstItem="utL-Kn-hT6" firstAttribute="centerX" secondItem="Xq1-1J-lrp" secondAttribute="centerX" id="U9f-OQ-c2q"/>
                             <constraint firstItem="im8-Yx-dp6" firstAttribute="trailing" secondItem="Xq1-1J-lrp" secondAttribute="trailingMargin" id="dHc-X8-n1p"/>
                             <constraint firstItem="im8-Yx-dp6" firstAttribute="centerY" secondItem="Xq1-1J-lrp" secondAttribute="centerY" id="fbV-RL-QtV"/>
                             <constraint firstItem="cx3-6f-p6D" firstAttribute="top" secondItem="JjN-FQ-bey" secondAttribute="bottom" constant="8" id="hdC-S0-Gxt"/>
@@ -295,6 +303,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="utL-Kn-hT6" id="Aee-2c-vCn"/>
                         <outlet property="emailTextField" destination="im8-Yx-dp6" id="ftc-x9-rKa"/>
                         <outlet property="loginButtonView" destination="cx3-6f-p6D" id="c5E-4c-qIC"/>
                         <outlet property="passwordTextField" destination="JjN-FQ-bey" id="Gmf-cq-mHQ"/>
