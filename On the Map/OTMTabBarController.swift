@@ -13,38 +13,110 @@ class OTMTabBarController: UITabBarController {
     var sessionId: NSString!
     var key: NSString!
     var expiration: NSString!
+    var students = [OTMStudent]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // MARK: - Housekeeping
     
-    @IBAction func dismiss(sender: UIButton)
+    override func viewDidLoad()
     {
-        self.logoutAndDismiss()
+        super.viewDidLoad()
+        self.students = []
+        self.loadStudentLocations()
     }
+
+    override func didReceiveMemoryWarning()
+    {
+        super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - Students
+    
+    @IBAction func reloadStudents(sender: UIButton)
+    {
+        self.students = []
+        self.loadStudentLocations()
+    }
+    
+    func loadStudentLocations()
+    {
+        self.callGetStudentsAPI()
+    }
+    
+    func callGetStudentsAPI()
+    {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error...
+                print("Load Students Failure: \(error)")
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.studentDownloadFailureAlert()
+                }
+                return
+            }
+            self.loadStudentsHandler(data!)
+        }
+        task.resume()
+    }
+    
+    func loadStudentsHandler(returnData: NSData)
+    {
+        do {
+            let JSON = try NSJSONSerialization.JSONObjectWithData(returnData, options:NSJSONReadingOptions(rawValue: 0))
+            guard let returnDict :NSDictionary = JSON as? NSDictionary else {
+                print("Load Students Failure: Invalid return dictionary.")
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.studentDownloadFailureAlert()
+                }
+                return
+            }
+            guard let results = returnDict["results"] as? NSArray else {
+                print("Load Students: No Results Array")
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.studentDownloadFailureAlert()
+                }
+                return
+            }
+            print("\(results)")
+            for result in results {
+                let dict = result as? NSDictionary
+                let student = OTMStudent.init(initDict: dict!)
+                self.students.append(student)
+            }
+            print("Count: \(self.students.count)")
+        }
+        catch let JSONError as NSError {
+            print("Load Students Failure: JSON Error - \(JSONError)")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.studentDownloadFailureAlert()
+            }
+        }
+    }
+    
+    func studentDownloadFailureAlert ()
+    {
+        let alert = UIAlertController.init(title:"Download Failed", message:"Could not download student list.", preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
+    // MARK: - Pins
     
     @IBAction func showAddPinView(sender: UIButton)
     {
         let pinViewController = self.storyboard?.instantiateViewControllerWithIdentifier("addPinViewController") as! OTMAddPinViewController?
         presentViewController(pinViewController!, animated: true, completion: nil)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: - Logout
+    
+    @IBAction func dismiss(sender: UIButton)
+    {
+        self.logoutAndDismiss()
     }
-    */
     
     func logoutAndDismiss()
     {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B0AAE3C1C251D9A0025DE86 /* OTMStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0AAE3B1C251D9A0025DE86 /* OTMStudent.swift */; };
 		6B5B3FBE1C22010700CA2E31 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5B3FBD1C22010700CA2E31 /* MapKit.framework */; };
 		6B5B3FC61C22191700CA2E31 /* OTMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B3FC51C22191700CA2E31 /* OTMTabBarController.swift */; };
 		6B5B3FC81C221D5B00CA2E31 /* OTMAddPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B3FC71C221D5B00CA2E31 /* OTMAddPinViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B0AAE3B1C251D9A0025DE86 /* OTMStudent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudent.swift; sourceTree = "<group>"; };
 		6B5B3FBD1C22010700CA2E31 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6B5B3FC51C22191700CA2E31 /* OTMTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMTabBarController.swift; sourceTree = "<group>"; };
 		6B5B3FC71C221D5B00CA2E31 /* OTMAddPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMAddPinViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				6BE51D9D1C1F7BB8000D4A5E /* SecondViewController.swift */,
 				6B5B3FC91C231E5200CA2E31 /* OTMLoginViewController.swift */,
 				6B5B3FC51C22191700CA2E31 /* OTMTabBarController.swift */,
+				6B0AAE3B1C251D9A0025DE86 /* OTMStudent.swift */,
 				6B5B3FC71C221D5B00CA2E31 /* OTMAddPinViewController.swift */,
 				6BE51D9F1C1F7BB8000D4A5E /* Main.storyboard */,
 				6BE51DA21C1F7BB8000D4A5E /* Assets.xcassets */,
@@ -278,6 +281,7 @@
 				6BE51D9E1C1F7BB8000D4A5E /* SecondViewController.swift in Sources */,
 				6BE51D9A1C1F7BB8000D4A5E /* AppDelegate.swift in Sources */,
 				6BE51D9C1C1F7BB8000D4A5E /* FirstViewController.swift in Sources */,
+				6B0AAE3C1C251D9A0025DE86 /* OTMStudent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

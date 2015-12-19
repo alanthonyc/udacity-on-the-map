@@ -182,7 +182,11 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="mqR-0h-KvY"/>
+                            <barButtonItem systemItem="refresh" id="mqR-0h-KvY">
+                                <connections>
+                                    <action selector="reloadStudents:" destination="49e-Tb-3d3" id="WIL-jL-VXN"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="Pin" id="gz9-MG-O5p">
                                 <connections>
                                     <action selector="showAddPinView:" destination="49e-Tb-3d3" id="wwe-Xg-Ee0"/>
