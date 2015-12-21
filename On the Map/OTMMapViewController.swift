@@ -59,7 +59,7 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.removeAnnotations(self.mapView.annotations)
     }
     
-    // MARK: - Map Annotations
+    // MARK: - MapViewDelegate
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -73,6 +73,11 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
         pinView!.rightCalloutAccessoryView = UIButton.init(type: .DetailDisclosure)
         pinView!.animatesDrop = true
         return pinView
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let pin = view.annotation as! MKPointAnnotation?
+        UIApplication.sharedApplication().openURL(NSURL(string: "\(pin!.subtitle!)")!)
     }
 }
 
