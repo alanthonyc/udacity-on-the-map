@@ -20,7 +20,7 @@ class OTMTabBarController: UITabBarController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        Student.Students = []
+        Student.List = []
         self.loadStudentLocations()
         self.mapViewController = self.viewControllers?.first as! OTMMapViewController
     }
@@ -34,7 +34,7 @@ class OTMTabBarController: UITabBarController {
     
     @IBAction func reloadStudents(sender: UIButton)
     {
-        Student.Students = []
+        Student.List = []
         self.mapViewController.clearMap()
         self.mapViewController.reloadMap()
         self.loadStudentLocations()
@@ -82,15 +82,12 @@ class OTMTabBarController: UITabBarController {
                 }
                 return
             }
-            print("\(results)")
             for result in results {
                 let dict = result as? NSDictionary
 
                 let student = Student.Info.init(initDict: dict!)
-                Student.Students.append(student)
+                Student.List.append(student)
             }
-            // TODO
-            print("Count: \(Student.Students.count)")
             dispatch_async(dispatch_get_main_queue()) {
                 self.mapViewController.addStudentLocations()
             }

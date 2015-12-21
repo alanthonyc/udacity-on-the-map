@@ -68,7 +68,6 @@ class OTMLoginViewController: UIViewController {
     
     func loginHandler(returnData: NSData)
     {
-        // print(NSString(data: returnData, encoding: NSUTF8StringEncoding))
         do {
             let JSON = try NSJSONSerialization.JSONObjectWithData(returnData, options:NSJSONReadingOptions(rawValue: 0))
             guard let returnDict :NSDictionary = JSON as? NSDictionary else {

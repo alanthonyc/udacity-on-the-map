@@ -10,10 +10,10 @@ import UIKit
 
 class Student
 {
-    static var Students = [Info]()
+    static var List = [Info]()
 
-    struct Info {
-
+    struct Info
+    {
         var createdAt: String!
         var firstName: String!
         var lastName: String!
@@ -38,6 +38,5 @@ class Student
             self.uniqueKey = initDict["uniqueKey"] as! String
             self.updatedAt = initDict["updatedAt"] as! String
         }
-        
     }
 }

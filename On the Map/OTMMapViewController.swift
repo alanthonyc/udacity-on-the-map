@@ -35,7 +35,7 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
 
     func addStudentLocations ()
     {
-        for student in Student.Students {
+        for student in Student.List {
             let coor = CLLocationCoordinate2D.init(latitude: student.latitude, longitude: student.longitude)
             let placemark = MKPlacemark.init(coordinate: coor, addressDictionary:["where":"here"])
             let pointAnnotation = MKPointAnnotation.init()
