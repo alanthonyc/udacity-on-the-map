@@ -39,7 +39,9 @@ class OTMTabBarController: UITabBarController {
         Student.List = []
         self.mapViewController.clearMap()
         self.mapViewController.reloadMap()
-        self.listViewController.reloadList()
+        if self.listViewController.tableView != nil {
+            self.listViewController.reloadList()
+        }
         self.loadStudentLocations()
     }
     
@@ -93,7 +95,9 @@ class OTMTabBarController: UITabBarController {
             }
             dispatch_async(dispatch_get_main_queue()) {
                 self.mapViewController.addStudentLocations()
-                self.listViewController.refreshTableView()
+                if self.listViewController.tableView != nil {
+                    self.listViewController.refreshTableView()
+                }
             }
         }
         catch let JSONError as NSError {

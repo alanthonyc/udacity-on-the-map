@@ -28,21 +28,13 @@ class OTMListViewController: UIViewController {
     
     func reloadList ()
     {
-        if self.activityIndicator != nil {
-             self.activityIndicator.startAnimating()
-        }
-        if self.tableViewController != nil {
-            self.tableViewController.reloadStudentList()
-        }
+        self.activityIndicator.startAnimating()
+        self.tableViewController.reloadStudentList()
     }
     
     func refreshTableView ()
     {
-        if self.activityIndicator != nil {
-            self.activityIndicator.stopAnimating()
-        }
-        if self.tableViewController != nil {
-            self.tableViewController.refreshStudentList()
-        }
+        self.activityIndicator.stopAnimating()
+        self.tableViewController.refreshStudentList()
     }
 }
