@@ -19,6 +19,19 @@ class OTMTableViewController: UITableViewController {
     {
         super.didReceiveMemoryWarning()
     }
+    
+    // MARK: - Load Students
+    
+    func reloadStudentList()
+    {
+        self.tableView.alpha = 0.2
+    }
+    
+    func refreshStudentList ()
+    {
+        self.tableView.alpha = 1.0
+        self.tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 

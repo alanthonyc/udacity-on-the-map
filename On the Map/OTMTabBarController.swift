@@ -14,6 +14,7 @@ class OTMTabBarController: UITabBarController {
     var key: NSString!
     var expiration: NSString!
     var mapViewController: OTMMapViewController!
+    var listViewController: OTMListViewController!
     
     // MARK: - Housekeeping
     
@@ -23,6 +24,7 @@ class OTMTabBarController: UITabBarController {
         Student.List = []
         self.loadStudentLocations()
         self.mapViewController = self.viewControllers?.first as! OTMMapViewController
+        self.listViewController = self.viewControllers?.last as! OTMListViewController
     }
 
     override func didReceiveMemoryWarning()
@@ -37,6 +39,7 @@ class OTMTabBarController: UITabBarController {
         Student.List = []
         self.mapViewController.clearMap()
         self.mapViewController.reloadMap()
+        self.listViewController.reloadList()
         self.loadStudentLocations()
     }
     
@@ -90,6 +93,7 @@ class OTMTabBarController: UITabBarController {
             }
             dispatch_async(dispatch_get_main_queue()) {
                 self.mapViewController.addStudentLocations()
+                self.listViewController.refreshTableView()
             }
         }
         catch let JSONError as NSError {
