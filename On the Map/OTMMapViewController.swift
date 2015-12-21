@@ -9,11 +9,13 @@
 import UIKit
 import MapKit
 
-class OTMMapViewController: UIViewController {
+class OTMMapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    // MARK: - Housekeeping
     
     override func viewDidLoad()
     {
@@ -21,12 +23,15 @@ class OTMMapViewController: UIViewController {
         self.activityIndicator.startAnimating()
         self.activityIndicator.hidden = false
         self.mapView.alpha = 0.2
+        self.mapView.delegate = self
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
+    
+    // MARK: - Map Locations
 
     func addStudentLocations ()
     {
@@ -53,4 +58,34 @@ class OTMMapViewController: UIViewController {
     {
         self.mapView.removeAnnotations(self.mapView.annotations)
     }
+    
+    // MARK: - Map Annotations
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation {
+            return nil
+        }
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as! MKPinAnnotationView?
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+        pinView!.canShowCallout = true
+        pinView!.rightCalloutAccessoryView = UIButton.init(type: .DetailDisclosure)
+        pinView!.animatesDrop = true
+        return pinView
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

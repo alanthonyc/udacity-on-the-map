@@ -86,7 +86,7 @@ class OTMTabBarController: UITabBarController {
             for result in results {
                 let dict = result as? NSDictionary
 
-                let student = Student.OTMStudent.init(initDict: dict!)
+                let student = Student.Info.init(initDict: dict!)
                 Student.Students.append(student)
             }
             // TODO
@@ -121,7 +121,7 @@ class OTMTabBarController: UITabBarController {
     
     // MARK: - Logout
     
-    @IBAction func dismiss(sender: UIButton)
+    @IBAction func logoutButtonTapped(sender: UIButton)
     {
         self.logoutAndDismiss()
     }

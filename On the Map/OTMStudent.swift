@@ -10,9 +10,9 @@ import UIKit
 
 class Student
 {
-    static var Students = [OTMStudent]()
+    static var Students = [Info]()
 
-    struct OTMStudent {
+    struct Info {
 
         var createdAt: String!
         var firstName: String!

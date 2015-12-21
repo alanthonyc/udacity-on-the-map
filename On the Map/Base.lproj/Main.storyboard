@@ -179,7 +179,7 @@
                     <navigationItem key="navigationItem" title="On the Map" id="RrC-pH-yQU">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="Myn-91-Gg1">
                             <connections>
-                                <action selector="dismiss:" destination="49e-Tb-3d3" id="U1O-uk-Vhy"/>
+                                <action selector="logoutButtonTapped:" destination="49e-Tb-3d3" id="qYc-B8-t7A"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>

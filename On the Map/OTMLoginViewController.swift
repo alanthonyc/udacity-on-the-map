@@ -90,7 +90,7 @@ class OTMLoginViewController: UIViewController {
                         self.alertLoginFailure()
                     }
                     return
-            }
+                }
             dispatch_async(dispatch_get_main_queue()) {
                 if registered {
                     let navigationController = self.storyboard?.instantiateViewControllerWithIdentifier("navigationController") as! UINavigationController?
