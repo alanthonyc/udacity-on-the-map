@@ -9,10 +9,13 @@
 import UIKit
 
 class OTMTableViewController: UITableViewController {
+    
+    var studentArray: [Student.Info]!
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.studentArray = Student.List
     }
 
     override func didReceiveMemoryWarning()
@@ -30,6 +33,7 @@ class OTMTableViewController: UITableViewController {
     func refreshStudentList ()
     {
         self.tableView.alpha = 1.0
+        self.studentArray = Student.List
         self.tableView.reloadData()
     }
 
@@ -47,13 +51,14 @@ class OTMTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("studentCell", forIndexPath: indexPath)
-        cell.textLabel?.text = "\(Student.List[indexPath.row].firstName) \(Student.List[indexPath.row].lastName)"
-        cell.detailTextLabel?.text = "\(Student.List[indexPath.row].mediaURL)"
+        let student = self.studentArray[indexPath.row]
+        cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
+        cell.detailTextLabel?.text = "\(student.mediaURL)"
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let student = Student.List[indexPath.row]
+        let student = self.studentArray[indexPath.row]
         UIApplication.sharedApplication().openURL(NSURL(string: "\(student.mediaURL)")!)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

@@ -19,6 +19,7 @@ class OTMListViewController: UIViewController {
         super.viewDidLoad()
         self.tableViewController = OTMTableViewController.init(style:UITableViewStyle.Plain)
         self.tableViewController.tableView = self.tableView
+        self.tableViewController.refreshStudentList()
     }
 
     override func didReceiveMemoryWarning()
