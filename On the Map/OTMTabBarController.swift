@@ -22,11 +22,11 @@ class OTMTabBarController: UITabBarController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.api = OTMUdacityAPI ()
         Student.List = []
         self.loadStudentLocations()
         self.mapViewController = self.viewControllers?.first as! OTMMapViewController
         self.listViewController = self.viewControllers?.last as! OTMListViewController
-        self.api = OTMUdacityAPI ()
     }
 
     override func didReceiveMemoryWarning()
@@ -47,28 +47,27 @@ class OTMTabBarController: UITabBarController {
         self.loadStudentLocations()
     }
     
+    // MARK: --- Call API to Load Students
+    
     func loadStudentLocations()
     {
-        self.callGetStudentsAPI()
+        self.api.loadStudents({(data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            self.loadStudentsCompletion(data, response:response, error:error)
+        })
     }
+
+    // MARK: --- API Completion Handlers
     
-    func callGetStudentsAPI()
+    func loadStudentsCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
     {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=-updatedAt")!)
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error...
-                print("Load Students Failure: \(error)")
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.studentDownloadFailureAlert()
-                }
-                return
+        if error != nil { // Handle error...
+            print("Load Students Failure: \(error)")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.studentDownloadFailureAlert()
             }
-            self.loadStudentsHandler(data!)
+            return
         }
-        task.resume()
+        self.loadStudentsHandler(data!)
     }
     
     func loadStudentsHandler(returnData: NSData)
@@ -135,12 +134,7 @@ class OTMTabBarController: UITabBarController {
     
     func logoutAndDismiss()
     {
-        self.logout()
-        self.self.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func logout()
-    {
         self.api.logout()
+        self.self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

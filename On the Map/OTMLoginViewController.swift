@@ -43,9 +43,9 @@ class OTMLoginViewController: UIViewController {
         let password = self.passwordTextField.text
         self.activityIndicator.startAnimating()
         self.activityIndicator.hidesWhenStopped = true
-        self.api.login(userEmail!, password:password!) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+        self.api.login(userEmail!, password:password!, loginCompletion:{ (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             self.loginCompletion(data, response:response, error:error)
-        }
+        })
     }
     
     func loginCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)

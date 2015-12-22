@@ -10,7 +10,7 @@ import UIKit
 
 class OTMUdacityAPI: NSObject {
 
-    func login (userEmail: String, password: String, loginHandler: (NSData?, NSURLResponse?, NSError?) -> Void)
+    func login (userEmail: String, password: String, loginCompletion: (NSData?, NSURLResponse?, NSError?) -> Void)
     {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         let httpBodyText = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(password)\"}}"
@@ -20,7 +20,7 @@ class OTMUdacityAPI: NSObject {
         request.HTTPBody = httpBodyText.dataUsingEncoding(NSUTF8StringEncoding)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            loginHandler(data, response, error)
+            loginCompletion(data, response, error)
         }
         task.resume()
     }
@@ -42,6 +42,18 @@ class OTMUdacityAPI: NSObject {
             if error != nil { // Handle error…
                 return
             }
+        }
+        task.resume()
+    }
+    
+    func loadStudents(loadStudentsCompletion: (NSData?, NSURLResponse?, NSError?) -> Void)
+    {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=-updatedAt")!)
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            loadStudentsCompletion(data, response, error)
         }
         task.resume()
     }
