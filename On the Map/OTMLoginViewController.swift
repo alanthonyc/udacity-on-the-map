@@ -48,36 +48,9 @@ class OTMLoginViewController: UIViewController {
     {
         self.activityIndicator.startAnimating()
         self.activityIndicator.hidesWhenStopped = true
-//        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-//        let httpBodyText = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(password)\"}}"
-//        request.HTTPMethod = "POST"
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.HTTPBody = httpBodyText.dataUsingEncoding(NSUTF8StringEncoding)
-//        let session = NSURLSession.sharedSession()
-//        let task = session.dataTaskWithRequest(request) { data, response, error in
-//            self.loginCompletion(data, response:response, error:error)
-//        }
-//        task.resume()
-//        self.api.loginAPI(userEmail, password:password,  { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-//            self.loginCompletion(data?, response: response?, error: error?)
-//        })
-        
         let api = OTMUdacityAPI ()
         api.loginAPI(userEmail, password: password) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-//            self.loginCompletion(data:NSData?, response:NSURLResponse?, error: NSError?)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.activityIndicator.stopAnimating()
-            }
-            if error != nil { // Networking Error
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.alertNetworkError()
-                }
-                return
-            }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* drop first five characters */
-            self.loginHandler(newData)
+            self.loginCompletion(data, response:response, error:error)
         }
     }
     
