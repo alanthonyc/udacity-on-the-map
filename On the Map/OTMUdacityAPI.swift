@@ -10,7 +10,7 @@ import UIKit
 
 class OTMUdacityAPI: NSObject {
 
-    func loginAPI (userEmail: String, password: String, loginHandler: (NSData?, NSURLResponse?, NSError?) -> Void){
+    func login (userEmail: String, password: String, loginHandler: (NSData?, NSURLResponse?, NSError?) -> Void){
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         let httpBodyText = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(password)\"}}"
         request.HTTPMethod = "POST"

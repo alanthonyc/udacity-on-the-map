@@ -14,8 +14,7 @@ class OTMLoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-//    var api: OTMUdacityAPI!
+    var api: OTMUdacityAPI!
 
     // MARK: - Housekeeping
     
@@ -23,6 +22,7 @@ class OTMLoginViewController: UIViewController {
     {
         super.viewDidLoad()
         self.loginButtonView.layer.cornerRadius = 4
+        self.api = OTMUdacityAPI ()
     }
 
     override func didReceiveMemoryWarning()
@@ -41,15 +41,9 @@ class OTMLoginViewController: UIViewController {
     {
         let userEmail = self.emailTextField.text
         let password = self.passwordTextField.text
-        self.callUdacityLoginAPI(userEmail!, password: password!)
-    }
-    
-    func callUdacityLoginAPI(userEmail:String, password:String)
-    {
         self.activityIndicator.startAnimating()
         self.activityIndicator.hidesWhenStopped = true
-        let api = OTMUdacityAPI ()
-        api.loginAPI(userEmail, password: password) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+        self.api.login(userEmail!, password:password!) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             self.loginCompletion(data, response:response, error:error)
         }
     }
