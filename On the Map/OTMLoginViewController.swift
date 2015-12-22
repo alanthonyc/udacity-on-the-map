@@ -14,6 +14,8 @@ class OTMLoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+//    var api: OTMUdacityAPI!
 
     // MARK: - Housekeeping
     
@@ -46,24 +48,52 @@ class OTMLoginViewController: UIViewController {
     {
         self.activityIndicator.startAnimating()
         self.activityIndicator.hidesWhenStopped = true
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        let httpBodyText = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(password)\"}}"
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = httpBodyText.dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+//        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+//        let httpBodyText = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(password)\"}}"
+//        request.HTTPMethod = "POST"
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.HTTPBody = httpBodyText.dataUsingEncoding(NSUTF8StringEncoding)
+//        let session = NSURLSession.sharedSession()
+//        let task = session.dataTaskWithRequest(request) { data, response, error in
+//            self.loginCompletion(data, response:response, error:error)
+//        }
+//        task.resume()
+//        self.api.loginAPI(userEmail, password:password,  { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+//            self.loginCompletion(data?, response: response?, error: error?)
+//        })
+        
+        let api = OTMUdacityAPI ()
+        api.loginAPI(userEmail, password: password) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+//            self.loginCompletion(data:NSData?, response:NSURLResponse?, error: NSError?)
+            
             dispatch_async(dispatch_get_main_queue()) {
                 self.activityIndicator.stopAnimating()
             }
-            if error != nil { // Handle error…
+            if error != nil { // Networking Error
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.alertNetworkError()
+                }
                 return
             }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* drop first five characters */
             self.loginHandler(newData)
         }
-        task.resume()
+    }
+    
+    func loginCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
+    {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.activityIndicator.stopAnimating()
+        }
+        if error != nil { // Networking Error
+            dispatch_async(dispatch_get_main_queue()) {
+                self.alertNetworkError()
+            }
+            return
+        }
+        let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* drop first five characters */
+        self.loginHandler(newData)
     }
     
     func loginHandler(returnData: NSData)
@@ -112,7 +142,17 @@ class OTMLoginViewController: UIViewController {
     
     func alertLoginFailure ()
     {
-        let alert = UIAlertController.init(title:"Login Failed", message:"Invalid email or password.", preferredStyle: UIAlertControllerStyle.Alert)
+        self.displayErrorAlert("Invalid email or password.")
+    }
+    
+    func alertNetworkError ()
+    {
+        self.displayErrorAlert("Network error.")
+    }
+    
+    func displayErrorAlert (message: String)
+    {
+        let alert = UIAlertController.init(title:"Login Failed", message:message, preferredStyle: UIAlertControllerStyle.Alert)
         let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
         alert.addAction(okAction)
         self.presentViewController(alert, animated: true, completion: nil)
