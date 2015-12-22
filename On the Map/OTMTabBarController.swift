@@ -15,6 +15,7 @@ class OTMTabBarController: UITabBarController {
     var expiration: NSString!
     var mapViewController: OTMMapViewController!
     var listViewController: OTMListViewController!
+    var api: OTMUdacityAPI!
     
     // MARK: - Housekeeping
     
@@ -25,6 +26,7 @@ class OTMTabBarController: UITabBarController {
         self.loadStudentLocations()
         self.mapViewController = self.viewControllers?.first as! OTMMapViewController
         self.listViewController = self.viewControllers?.last as! OTMListViewController
+        self.api = OTMUdacityAPI ()
     }
 
     override func didReceiveMemoryWarning()
@@ -139,24 +141,6 @@ class OTMTabBarController: UITabBarController {
 
     func logout()
     {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "DELETE"
-        var xsrfCookie: NSHTTPCookie? = nil
-        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in sharedCookieStorage.cookies as [NSHTTPCookie]! {
-            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
-        }
-        if let xsrfCookie = xsrfCookie {
-            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
-        }
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                return
-            }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
+        self.api.logout()
     }
 }
