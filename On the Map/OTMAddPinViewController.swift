@@ -20,8 +20,11 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var findLocationBaseView: UIView!
     @IBOutlet weak var urlEntryView: UIView!
     @IBOutlet weak var submitButtonBaseView: UIView!
+    @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
 
+    // MARK: - Housekeeping
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -46,6 +49,8 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     {
         self.self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    // MARK: - Geolocation
     
     @IBAction func findButtonTapped(sender: UIButton)
     {
@@ -77,7 +82,8 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
         }
         let pm = MKPlacemark.init(placemark: placemarks![0])
         self.mapView.addAnnotation(pm)
-        let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 400, 400);
+        let locationCoordinates = pm.coordinate
+        let region = MKCoordinateRegionMakeWithDistance(locationCoordinates, 400, 400);
         self.mapView.region = region
     }
     
@@ -87,6 +93,13 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
         let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
         alert.addAction(okAction)
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Get and post URL
+    
+    @IBAction func submitButtonTapped (sender:UIButton)
+    {
+        print(self.urlTextField.text)
     }
     
     // MARK: - MapViewDelegate
