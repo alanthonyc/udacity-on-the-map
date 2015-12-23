@@ -12,6 +12,7 @@ import CoreLocation
 
 class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var findButtonBaseView: UIView!
     @IBOutlet weak var cancelButtonBaseView: UIView!
     @IBOutlet weak var locationEntryBaseView: UIView!
@@ -22,6 +23,10 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var submitButtonBaseView: UIView!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    
+    var locationCoordinates: CLLocationCoordinate2D!
+    var firstName: String!
+    var lastName: String!
 
     // MARK: - Housekeeping
     
@@ -61,6 +66,7 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     {
         self.mapView.alpha = 0.2
         self.findLocationBaseView.alpha = 0.4
+        self.headerView.alpha = 0.0
         self.activityIndicator.startAnimating()
         let geo = CLGeocoder ()
         geo.geocodeAddressString(locationString, completionHandler: { (placemarks:[CLPlacemark]?, error:NSError?) -> Void in
@@ -82,7 +88,7 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
         }
         let pm = MKPlacemark.init(placemark: placemarks![0])
         self.mapView.addAnnotation(pm)
-        let locationCoordinates = pm.coordinate
+        self.locationCoordinates = pm.coordinate
         let region = MKCoordinateRegionMakeWithDistance(locationCoordinates, 400, 400);
         self.mapView.region = region
     }
@@ -100,6 +106,15 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     @IBAction func submitButtonTapped (sender:UIButton)
     {
         print(self.urlTextField.text)
+        let api = OTMUdacityAPI ()
+        api.postStudent(self.firstName, lastName: self.lastName, locationString: self.locationTextField.text!, urlString: self.urlTextField.text!, longitude: self.locationCoordinates.longitude, latitude: self.locationCoordinates.latitude) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            self.postStudentsCompletion(data, response: response, error: error)
+        }
+    }
+    
+    func postStudentsCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
+    {
+        print(NSString(data: data!, encoding: NSUTF8StringEncoding))
     }
     
     // MARK: - MapViewDelegate

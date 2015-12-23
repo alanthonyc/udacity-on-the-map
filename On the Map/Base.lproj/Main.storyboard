@@ -187,7 +187,7 @@
                                         </constraints>
                                     </view>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="du0-7J-8tI">
-                                        <rect key="frame" x="0.0" y="114" width="560" height="263.5"/>
+                                        <rect key="frame" x="0.0" y="114" width="560" height="256"/>
                                     </mapView>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="9je-gw-bVM">
                                         <rect key="frame" x="270" y="185" width="20" height="20"/>
@@ -209,7 +209,7 @@
                                     <constraint firstAttribute="trailing" secondItem="BIq-qd-nso" secondAttribute="trailing" id="jjb-8F-t9u"/>
                                     <constraint firstItem="9je-gw-bVM" firstAttribute="leading" secondItem="p7N-xs-ciH" secondAttribute="leading" constant="270" id="k5B-0i-xqV"/>
                                     <constraint firstItem="du0-7J-8tI" firstAttribute="leading" secondItem="p7N-xs-ciH" secondAttribute="leading" id="m3X-kY-aRb"/>
-                                    <constraint firstAttribute="bottom" secondItem="du0-7J-8tI" secondAttribute="bottom" constant="12" id="psv-qb-lUZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="du0-7J-8tI" secondAttribute="bottom" constant="20" id="psv-qb-lUZ"/>
                                     <constraint firstAttribute="bottom" secondItem="9je-gw-bVM" secondAttribute="bottom" constant="135" id="twg-VP-HnO"/>
                                     <constraint firstItem="9je-gw-bVM" firstAttribute="centerX" secondItem="p7N-xs-ciH" secondAttribute="centerX" id="xD1-1l-QJY"/>
                                     <constraint firstAttribute="trailing" secondItem="9je-gw-bVM" secondAttribute="trailing" constant="270" id="xf7-E8-5WM"/>
@@ -313,6 +313,7 @@
                         <outlet property="cancelButtonBaseView" destination="AMZ-i7-onS" id="hiU-qS-yGN"/>
                         <outlet property="findButtonBaseView" destination="ucR-Pl-JM8" id="ipF-1W-hyH"/>
                         <outlet property="findLocationBaseView" destination="BIq-qd-nso" id="zSt-fP-EOt"/>
+                        <outlet property="headerView" destination="6VS-D0-OKa" id="jlj-XG-xDa"/>
                         <outlet property="locationEntryBaseView" destination="p7N-xs-ciH" id="ewi-uk-SYh"/>
                         <outlet property="locationTextField" destination="QB1-SB-TEj" id="PfK-vX-jlQ"/>
                         <outlet property="mapView" destination="du0-7J-8tI" id="KFX-cG-Ero"/>
@@ -323,7 +324,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uf0-Jo-6e7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1424" y="0.0"/>
+            <point key="canvasLocation" x="1458" y="0.0"/>
         </scene>
         <!--tabBarController-->
         <scene sceneID="yl2-sM-qoP">

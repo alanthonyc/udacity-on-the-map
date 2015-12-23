@@ -25,6 +25,17 @@ class OTMUdacityAPI: NSObject {
         task.resume()
     }
     
+    func getStudent (userId: String, completion:(NSData?, NSURLResponse?, NSError?)->Void)
+    {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(userId)")!)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            completion(newData, response, error)
+        }
+        task.resume()
+    }
+    
     func logout ()
     {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
@@ -46,7 +57,7 @@ class OTMUdacityAPI: NSObject {
         task.resume()
     }
     
-    func loadStudents(loadStudentsCompletion: (NSData?, NSURLResponse?, NSError?) -> Void)
+    func loadStudents(loadStudentsCompletion: (NSData?, NSURLResponse?, NSError?)->Void)
     {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100&order=-updatedAt")!)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -57,4 +68,26 @@ class OTMUdacityAPI: NSObject {
         }
         task.resume()
     }
+    
+    func postStudent(firstName: String, lastName: String, locationString: String, urlString: String, longitude: Double, latitude: Double, postStudentsCompletion: (NSData?, NSURLResponse?, NSError?)->Void)
+    {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+        request.HTTPMethod = "POST"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(locationString)\", \"mediaURL\": \"\(urlString)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            postStudentsCompletion(data, response, error)
+        }
+        task.resume()
+    }
 }
+
+
+
+
+
+
+

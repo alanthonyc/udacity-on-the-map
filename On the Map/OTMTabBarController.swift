@@ -16,6 +16,8 @@ class OTMTabBarController: UITabBarController {
     var mapViewController: OTMMapViewController!
     var listViewController: OTMListViewController!
     var api: OTMUdacityAPI!
+    var firstName: String!
+    var lastName: String!
     
     // MARK: - Housekeeping
     
@@ -28,6 +30,12 @@ class OTMTabBarController: UITabBarController {
         self.mapViewController = self.viewControllers?.first as! OTMMapViewController
         self.listViewController = self.viewControllers?.last as! OTMListViewController
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.api.getStudent(self.key as String, completion: { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            self.getUserCompletion(data, response:response, error:error)
+        })
+    }
 
     override func didReceiveMemoryWarning()
     {
@@ -35,6 +43,32 @@ class OTMTabBarController: UITabBarController {
     }
     
     // MARK: - Students
+    
+    func getUserCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
+    {
+        do {
+            let JSON = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions(rawValue: 0))
+            guard let returnDict :NSDictionary = JSON as? NSDictionary else {
+                print("Get Student Failure: Invalid return dictionary.")
+                return
+            }
+            guard
+                let user = returnDict["user"] as? NSDictionary,
+                let firstName = user["first_name"]! as? String,
+                let lastName = user["last_name"]! as? String else {
+                    print("Get Student Failure: Missing dictionary element.")
+                    return
+                }
+            self.firstName = firstName
+            self.lastName = lastName
+            
+            print("Got Student: \(firstName) \(lastName)")
+        }
+        catch let JSONError as NSError {
+            print("Login Failure: JSON Error - \(JSONError)")
+        }
+
+    }
     
     @IBAction func reloadStudents(sender: UIButton)
     {
@@ -122,6 +156,8 @@ class OTMTabBarController: UITabBarController {
     @IBAction func showAddPinView(sender: UIButton)
     {
         let pinViewController = self.storyboard?.instantiateViewControllerWithIdentifier("addPinViewController") as! OTMAddPinViewController?
+        pinViewController?.firstName = self.firstName
+        pinViewController?.lastName = self.lastName
         presentViewController(pinViewController!, animated: true, completion: nil)
     }
     
