@@ -79,7 +79,20 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let pin = view.annotation as! MKPointAnnotation?
-        UIApplication.sharedApplication().openURL(NSURL(string: "\(pin!.subtitle!)")!)
+        let url = NSURL(string: pin!.subtitle!)
+        if url != nil && url!.scheme != "" {
+            UIApplication.sharedApplication().openURL(url!)
+        } else {
+            self.displayURLAlert()
+        }
+    }
+    
+    func displayURLAlert()
+    {
+        let alert = UIAlertController.init(title:"Link Error", message:"Invalid link.", preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
 

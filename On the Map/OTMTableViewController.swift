@@ -53,7 +53,8 @@ class OTMTableViewController: UITableViewController {
         return Student.List.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier("studentCell", forIndexPath: indexPath)
         let student = self.studentArray[indexPath.row]
         cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
@@ -61,12 +62,27 @@ class OTMTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         let student = self.studentArray[indexPath.row]
-        UIApplication.sharedApplication().openURL(NSURL(string: "\(student.mediaURL)")!)
+        let url = NSURL(string: student.mediaURL)
+        if url != nil && url!.scheme != "" {
+            UIApplication.sharedApplication().openURL(url!)
+        } else {
+            self.displayURLAlert()
+        }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+
+    func displayURLAlert()
+    {
+        let alert = UIAlertController.init(title:"Link Error", message:"Invalid link.", preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
