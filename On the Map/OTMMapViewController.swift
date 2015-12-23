@@ -11,6 +11,8 @@ import MapKit
 
 class OTMMapViewController: UIViewController, MKMapViewDelegate {
 
+    // MARK: - Outlets
+    
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

@@ -10,9 +10,16 @@ import UIKit
 
 class OTMListViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    
+    // MARK: - Properties
+    
     var tableViewController: OTMTableViewController!
+    
+    // MARK: - Housekeeping
 
     override func viewDidLoad()
     {
@@ -26,6 +33,8 @@ class OTMListViewController: UIViewController {
     {
         super.didReceiveMemoryWarning()
     }
+    
+    // MARK: - Load Info
     
     func reloadList ()
     {

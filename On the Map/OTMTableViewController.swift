@@ -10,7 +10,11 @@ import UIKit
 
 class OTMTableViewController: UITableViewController {
     
+    // MARK: - Properties
+    
     var studentArray: [Student.Info]!
+    
+    // MARK: - Housekeeping
 
     override func viewDidLoad()
     {

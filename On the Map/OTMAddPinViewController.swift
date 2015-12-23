@@ -10,7 +10,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
+protocol CloseAddPinView
+{
+    func closeAddPinView ()->Void
+}
+
 class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var findButtonBaseView: UIView!
@@ -24,9 +31,12 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     
+    // MARK: - Properties
+    
     var locationCoordinates: CLLocationCoordinate2D!
     var firstName: String!
     var lastName: String!
+    var delegate: CloseAddPinView!
 
     // MARK: - Housekeeping
     
@@ -50,7 +60,7 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func dismissAddPin(sender: UIButton)
+    @IBAction func cancelButtonTapped(sender: UIButton)
     {
         self.self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -105,7 +115,13 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func submitButtonTapped (sender:UIButton)
     {
-        print(self.urlTextField.text)
+        self.postUserInfo()
+    }
+    
+    func postUserInfo()
+    {
+        self.mapView.alpha = 0.2
+        self.activityIndicator.startAnimating()
         let api = OTMUdacityAPI ()
         api.postStudent(self.firstName, lastName: self.lastName, locationString: self.locationTextField.text!, urlString: self.urlTextField.text!, longitude: self.locationCoordinates.longitude, latitude: self.locationCoordinates.latitude) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             self.postStudentsCompletion(data, response: response, error: error)
@@ -114,7 +130,9 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     
     func postStudentsCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
     {
-        print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        self.activityIndicator.stopAnimating()
+        self.mapView.alpha = 1.0
+        self.delegate.closeAddPinView()
     }
     
     // MARK: - MapViewDelegate

@@ -276,7 +276,7 @@
                                         <rect key="frame" x="6" y="0.0" width="48" height="30"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
-                                            <action selector="dismissAddPin:" destination="V6c-eO-qLC" eventType="touchUpInside" id="XOH-Jh-wCT"/>
+                                            <action selector="cancelButtonTapped:" destination="V6c-eO-qLC" eventType="touchUpInside" id="BKq-Ty-L8o"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -339,7 +339,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="mqR-0h-KvY">
                                 <connections>
-                                    <action selector="reloadStudents:" destination="49e-Tb-3d3" id="WIL-jL-VXN"/>
+                                    <action selector="refreshButtonTapped:" destination="49e-Tb-3d3" id="M71-RZ-iML"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="Pin" id="gz9-MG-O5p">

@@ -9,6 +9,8 @@
 import UIKit
 
 class OTMUdacityAPI: NSObject {
+    
+    // MARK: - API Calls
 
     func login (userEmail: String, password: String, loginCompletion: (NSData?, NSURLResponse?, NSError?) -> Void)
     {
