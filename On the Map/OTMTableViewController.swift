@@ -17,17 +17,7 @@ class OTMTableViewController: UITableViewController {
     
     var delegate: TableViewAlertProtocol!
     
-    // MARK: - Properties
-    
-    var studentArray: [StudentInformation]!
-    
     // MARK: - Housekeeping
-
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        self.studentArray = Student.List
-    }
 
     override func didReceiveMemoryWarning()
     {
@@ -48,7 +38,6 @@ class OTMTableViewController: UITableViewController {
     
     func refreshStudentList ()
     {
-        self.studentArray = Student.List
         self.tableView.reloadData()
     }
 
@@ -67,21 +56,44 @@ class OTMTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("studentCell", forIndexPath: indexPath)
-        let student = self.studentArray[indexPath.row]
-        cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
-        cell.detailTextLabel?.text = "\(student.mediaURL)"
+        let row = indexPath.row
+        if row < Student.List.count {
+            let student = Student.List[row]
+            cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
+            cell.detailTextLabel?.text = "\(student.mediaURL)"
+        } else {
+            cell.textLabel?.text = ""
+            cell.detailTextLabel?.text = ""
+        }
+
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let student = self.studentArray[indexPath.row]
-        let url = NSURL(string: student.mediaURL)
-        if url != nil && url!.scheme != "" {
-            UIApplication.sharedApplication().openURL(url!)
-        } else {
-            self.delegate.displayURLAlert()
+        let row = indexPath.row
+        if row < Student.List.count {
+            let student = Student.List[indexPath.row]
+            let url = NSURL(string: student.mediaURL)
+            if url != nil && url!.scheme != "" {
+                UIApplication.sharedApplication().openURL(url!)
+            } else {
+                self.delegate.displayURLAlert()
+            }
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
