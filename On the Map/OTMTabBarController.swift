@@ -69,6 +69,12 @@ class OTMTabBarController: UITabBarController, CloseAddPinViewProtocol {
     
     func loadStudentsCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
     {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.mapViewController.resetUI()
+            if self.listViewController.viewIfLoaded != nil {
+                self.listViewController.resetUI()
+            }
+        }
         if error != nil { // Handle error...
             print("Load Students Failure: \(error)")
             dispatch_async(dispatch_get_main_queue()) {
@@ -99,7 +105,6 @@ class OTMTabBarController: UITabBarController, CloseAddPinViewProtocol {
             }
             for result in results {
                 let dict = result as? NSDictionary
-
                 let student = Student.Info.init(initDict: dict!)
                 Student.List.append(student)
             }

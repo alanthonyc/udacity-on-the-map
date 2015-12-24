@@ -37,6 +37,12 @@ class OTMListViewController: UIViewController, TableViewAlertProtocol {
     
     // MARK: - Load Info
     
+    func resetUI()
+    {
+        self.activityIndicator.stopAnimating()
+        self.tableViewController.resetUI()
+    }
+    
     func reloadList ()
     {
         self.activityIndicator.startAnimating()
@@ -45,7 +51,7 @@ class OTMListViewController: UIViewController, TableViewAlertProtocol {
     
     func refreshTableView ()
     {
-        self.activityIndicator.stopAnimating()
+        self.resetUI()
         self.tableViewController.refreshStudentList()
     }
     

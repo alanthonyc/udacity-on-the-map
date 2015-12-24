@@ -27,6 +27,12 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.alpha = 0.2
         self.mapView.delegate = self
     }
+    
+    func resetUI()
+    {
+        self.activityIndicator.stopAnimating()
+        self.mapView.alpha = 1.0
+    }
 
     override func didReceiveMemoryWarning()
     {
@@ -46,8 +52,6 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
             pointAnnotation.subtitle = student.mediaURL
             self.mapView.addAnnotation(pointAnnotation)
         }
-        self.activityIndicator.stopAnimating()
-        self.mapView.alpha = 1.0
     }
     
     func reloadMap ()

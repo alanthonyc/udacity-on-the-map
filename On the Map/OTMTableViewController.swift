@@ -34,6 +34,11 @@ class OTMTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    func resetUI()
+    {
+        self.tableView.alpha = 1.0
+    }
+    
     // MARK: - Load Students
     
     func reloadStudentList()
@@ -43,7 +48,6 @@ class OTMTableViewController: UITableViewController {
     
     func refreshStudentList ()
     {
-        self.tableView.alpha = 1.0
         self.studentArray = Student.List
         self.tableView.reloadData()
     }
