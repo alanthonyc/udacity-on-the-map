@@ -131,9 +131,24 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     
     func postStudentsCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
     {
-        self.activityIndicator.stopAnimating()
-        self.mapView.alpha = 1.0
-        self.delegate.closeAddPinView()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.activityIndicator.stopAnimating()
+            self.mapView.alpha = 1.0
+            if error != nil {
+                self.displayPostingAlert()
+                return
+            } else {
+                self.delegate.closeAddPinView()
+            }
+        })
+    }
+    
+    func displayPostingAlert ()
+    {
+        let alert = UIAlertController.init(title:"Posting Error", message:"Could not post location and link.", preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     // MARK: - MapViewDelegate
