@@ -105,7 +105,7 @@ class OTMTabBarController: UITabBarController, CloseAddPinViewProtocol {
             }
             for result in results {
                 let dict = result as? NSDictionary
-                let student = Student.Info.init(initDict: dict!)
+                let student = StudentInformation.init(initDict: dict!)
                 Student.List.append(student)
             }
             dispatch_async(dispatch_get_main_queue()) {

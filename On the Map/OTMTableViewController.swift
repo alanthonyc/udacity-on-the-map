@@ -19,7 +19,7 @@ class OTMTableViewController: UITableViewController {
     
     // MARK: - Properties
     
-    var studentArray: [Student.Info]!
+    var studentArray: [StudentInformation]!
     
     // MARK: - Housekeeping
 
