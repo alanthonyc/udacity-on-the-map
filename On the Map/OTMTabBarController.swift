@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OTMTabBarController: UITabBarController, CloseAddPinView {
+class OTMTabBarController: UITabBarController, CloseAddPinViewProtocol {
 
     // MARK: - Properties
     

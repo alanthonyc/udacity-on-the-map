@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-protocol CloseAddPinView
+protocol CloseAddPinViewProtocol
 {
     func closeAddPinView ()->Void
 }
@@ -36,7 +36,7 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     var locationCoordinates: CLLocationCoordinate2D!
     var firstName: String!
     var lastName: String!
-    var delegate: CloseAddPinView!
+    var delegate: CloseAddPinViewProtocol!
 
     // MARK: - Housekeeping
     

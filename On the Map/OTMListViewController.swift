@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OTMListViewController: UIViewController, TableViewAlert {
+class OTMListViewController: UIViewController, TableViewAlertProtocol {
     
     // MARK: - Outlets
     
@@ -49,6 +49,7 @@ class OTMListViewController: UIViewController, TableViewAlert {
         self.tableViewController.refreshStudentList()
     }
     
+    // MARK: - TableViewAlert Protocol
     
     func displayURLAlert()
     {
