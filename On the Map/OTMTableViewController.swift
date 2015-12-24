@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol TableViewAlert
+{
+    func displayURLAlert()
+}
+
 class OTMTableViewController: UITableViewController {
+    
+    var delegate: TableViewAlert!
     
     // MARK: - Properties
     
@@ -69,18 +76,9 @@ class OTMTableViewController: UITableViewController {
         if url != nil && url!.scheme != "" {
             UIApplication.sharedApplication().openURL(url!)
         } else {
-            self.displayURLAlert()
+            self.delegate.displayURLAlert()
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-
-    func displayURLAlert()
-    {
-        let alert = UIAlertController.init(title:"Link Error", message:"Invalid link.", preferredStyle: UIAlertControllerStyle.Alert)
-        let okAction = UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
-        alert.addAction(okAction)
-        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     /*

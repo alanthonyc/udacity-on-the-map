@@ -88,14 +88,15 @@ class OTMAddPinViewController: UIViewController, MKMapViewDelegate {
     
     func geoLocationCompletion (placemarks:[CLPlacemark]?, error:NSError?)
     {
-        self.findLocationBaseView.alpha = 0.0
         self.activityIndicator.stopAnimating()
         self.mapView.alpha = 1.0
-        self.urlEntryView.alpha = 1.0
         if error != nil {
+            self.findLocationBaseView.alpha = 1.0
             self.displayGeocodingAlert("Could not find location.")
             return
         }
+        self.findLocationBaseView.alpha = 0.0
+        self.urlEntryView.alpha = 1.0
         let pm = MKPlacemark.init(placemark: placemarks![0])
         self.mapView.addAnnotation(pm)
         self.locationCoordinates = pm.coordinate
