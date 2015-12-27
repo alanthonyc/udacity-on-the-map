@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class OTMTabBarController: UITabBarController, CloseAddPinViewProtocol {
 
@@ -153,6 +154,7 @@ class OTMTabBarController: UITabBarController, CloseAddPinViewProtocol {
     
     @IBAction func logoutButtonTapped(sender: UIButton)
     {
+        FBSDKLoginManager().logOut()
         self.logoutAndDismiss()
     }
     

@@ -20,6 +20,7 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // MARK: - Properties
     
+    weak var facebookLoginButton: UIButton!
     var api: OTMUdacityAPI!
     var account: NSDictionary!
     var session: NSDictionary!
@@ -29,13 +30,23 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.activityIndicator.hidesWhenStopped = true
         self.loginButtonView.layer.cornerRadius = 4
         self.api = OTMUdacityAPI ()
         let fbLoginButton = FBSDKLoginButton ()
         fbLoginButton.center = self.view.center
         fbLoginButton.center.y += 112
         fbLoginButton.delegate = self
+        self.facebookLoginButton = fbLoginButton
         self.view.addSubview(fbLoginButton)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.hideActivityIndicators()
+            self.facebookLoginButton.userInteractionEnabled = true
+            self.facebookLoginButton.alpha = 1.0
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -43,40 +54,61 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: - UI
+    
+    func hideUdacityLogin ()
+    {
+        self.emailTextField.alpha = 0.2
+        self.passwordTextField.alpha = 0.2
+        self.loginButtonView.alpha = 0.2
+        self.loginButtonView.userInteractionEnabled = false
+    }
+    
+    func showUdacityLogin ()
+    {
+        self.emailTextField.alpha = 1.0
+        self.passwordTextField.alpha = 1.0
+        self.loginButtonView.alpha = 1.0
+        self.loginButtonView.userInteractionEnabled = true
+    }
+    
+    func displayActivityIndicators ()
+    {
+        self.hideUdacityLogin()
+        self.activityIndicator.hidden = false
+        self.activityIndicator.startAnimating()
+    }
+    
+    func hideActivityIndicators ()
+    {
+        self.activityIndicator.hidden = true
+        self.showUdacityLogin()
+        self.activityIndicator.stopAnimating()
+    }
+    
     // MARK: - Login
+    
+    // MARK: --- Udacity Login
     
     @IBAction func loginButtonTapped(sender: UIButton)
     {
         self.loginToUdacity()
-    }
-
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
-    {
-        let token = FBSDKAccessToken.currentAccessToken().tokenString
-        print("logged in: \(token)")
-    }
-    
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
-    {
-        print("logged out")
     }
     
     func loginToUdacity()
     {
         let userEmail = self.emailTextField.text
         let password = self.passwordTextField.text
-        self.activityIndicator.startAnimating()
-        self.activityIndicator.hidesWhenStopped = true
+        self.displayActivityIndicators()
+        self.facebookLoginButton.userInteractionEnabled = false
+        self.facebookLoginButton.alpha = 0.2
         self.api.login(userEmail!, password:password!, loginCompletion:{ (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-            self.loginCompletion(data, response:response, error:error)
+            self.udacityLoginCompletion(data, response:response, error:error)
         })
     }
     
-    func loginCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
+    func udacityLoginCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
     {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.activityIndicator.stopAnimating()
-        }
         if error != nil { // Networking Error
             dispatch_async(dispatch_get_main_queue()) {
                 self.alertNetworkError()
@@ -86,6 +118,50 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* drop first five characters */
         self.loginHandler(newData)
     }
+
+    // MARK: --- Facebook Login
+    
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
+    {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.displayActivityIndicators()
+            self.facebookLoginButton.userInteractionEnabled = false
+            self.facebookLoginButton.alpha = 0.2
+        }
+        if error != nil {
+            return
+        }
+        if result.isCancelled == false {
+            let token = FBSDKAccessToken.currentAccessToken().tokenString
+            self.api.facebookLogin(token) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+                self.facebookLoginCompletion(data, response: response, error: error)
+            }
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.hideActivityIndicators()
+                self.facebookLoginButton.userInteractionEnabled = true
+                self.facebookLoginButton.alpha = 1.0
+            }
+        }
+    }
+    
+    func facebookLoginCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
+    {
+        if error != nil {
+            print("udacity facebook login error")
+            return
+        }
+        let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+        self.loginHandler(newData)
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
+    {
+        print("logged out")
+    }
+    
+    // MARK: --- Login Handler
     
     func loginHandler(returnData: NSData)
     {
@@ -106,7 +182,7 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         self.alertLoginFailure()
                     }
                     return
-                }
+            }
             self.account = account
             self.session = session
             self.getUserInfo((self.account["key"] as? String)!)
@@ -116,6 +192,8 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.alertLoginFailure()
         }
     }
+    
+    // MARK: --- Login Alerts
     
     func alertLoginFailure ()
     {
