@@ -27,6 +27,20 @@ class OTMUdacityAPI: NSObject {
         task.resume()
     }
     
+    func facebookLogin (token: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void)
+    {
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \(token);\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            completion(data, response, error)
+        }
+        task.resume()
+    }
+    
     func getStudent (userId: String, completion:(NSData?, NSURLResponse?, NSError?)->Void)
     {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(userId)")!)

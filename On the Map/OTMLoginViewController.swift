@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
-class OTMLoginViewController: UIViewController {
+class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // MARK: - Outlets
     
@@ -30,6 +31,11 @@ class OTMLoginViewController: UIViewController {
         super.viewDidLoad()
         self.loginButtonView.layer.cornerRadius = 4
         self.api = OTMUdacityAPI ()
+        let fbLoginButton = FBSDKLoginButton ()
+        fbLoginButton.center = self.view.center
+        fbLoginButton.center.y += 112
+        fbLoginButton.delegate = self
+        self.view.addSubview(fbLoginButton)
     }
 
     override func didReceiveMemoryWarning()
@@ -42,6 +48,17 @@ class OTMLoginViewController: UIViewController {
     @IBAction func loginButtonTapped(sender: UIButton)
     {
         self.loginToUdacity()
+    }
+
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
+    {
+        let token = FBSDKAccessToken.currentAccessToken().tokenString
+        print("logged in: \(token)")
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
+    {
+        print("logged out")
     }
     
     func loginToUdacity()

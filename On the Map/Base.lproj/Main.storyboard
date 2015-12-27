@@ -490,10 +490,11 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cx3-6f-p6D" userLabel="LoginButtonView">
-                                <rect key="frame" x="20" y="361" width="560" height="34"/>
+                                <rect key="frame" x="213" y="361" width="174" height="29"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0i-Nd-D7r">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="174" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <state key="normal" title="Login"/>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="rUu-AN-mjj" eventType="touchUpInside" id="0bO-gX-byL"/>
@@ -503,10 +504,17 @@
                                 <color key="backgroundColor" red="0.96359699964523315" green="0.34700524806976318" blue="0.042304951697587967" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="N0i-Nd-D7r" firstAttribute="leading" secondItem="cx3-6f-p6D" secondAttribute="leading" id="8pY-cx-DH6"/>
+                                    <constraint firstAttribute="height" constant="50" id="DVa-U1-ac6"/>
                                     <constraint firstItem="N0i-Nd-D7r" firstAttribute="top" secondItem="cx3-6f-p6D" secondAttribute="top" id="HSU-U0-oTs"/>
                                     <constraint firstAttribute="bottom" secondItem="N0i-Nd-D7r" secondAttribute="bottom" id="b6P-OA-W8f"/>
+                                    <constraint firstAttribute="width" constant="174" id="oUW-cY-vsE"/>
                                     <constraint firstAttribute="trailing" secondItem="N0i-Nd-D7r" secondAttribute="trailing" id="pnm-LK-Ku1"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DVa-U1-ac6"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="utL-Kn-hT6">
                                 <rect key="frame" x="290" y="240" width="20" height="20"/>
@@ -533,7 +541,14 @@
                             <constraint firstItem="cx3-6f-p6D" firstAttribute="top" secondItem="JjN-FQ-bey" secondAttribute="bottom" constant="8" id="hdC-S0-Gxt"/>
                             <constraint firstItem="JjN-FQ-bey" firstAttribute="top" secondItem="im8-Yx-dp6" secondAttribute="bottom" constant="8" id="og1-Id-pXv"/>
                             <constraint firstItem="X1H-y4-GMQ" firstAttribute="centerX" secondItem="Xq1-1J-lrp" secondAttribute="centerX" id="pso-fQ-qai"/>
+                            <constraint firstItem="cx3-6f-p6D" firstAttribute="centerX" secondItem="Xq1-1J-lrp" secondAttribute="centerX" id="ykD-Ow-pCu"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="IJs-O1-Dzb"/>
+                                <exclude reference="Qux-Ux-DpK"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="utL-Kn-hT6" id="Aee-2c-vCn"/>
