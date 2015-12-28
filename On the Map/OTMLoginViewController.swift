@@ -149,8 +149,9 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func facebookLoginCompletion (data:NSData?, response:NSURLResponse?, error:NSError?)
     {
         if error != nil {
-            print("udacity facebook login error")
-            return
+            dispatch_async(dispatch_get_main_queue()) {
+                self.alertNetworkError()
+            }
         }
         let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
         self.loginHandler(newData)
@@ -158,7 +159,7 @@ class OTMLoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
     {
-        print("logged out")
+
     }
     
     // MARK: --- Login Handler

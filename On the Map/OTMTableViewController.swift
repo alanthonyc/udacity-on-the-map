@@ -55,17 +55,22 @@ class OTMTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("studentCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("studentCell", forIndexPath: indexPath) as! OTMTableViewCell
         let row = indexPath.row
         if row < Student.List.count {
             let student = Student.List[row]
             cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
             cell.detailTextLabel?.text = "\(student.mediaURL)"
+            
+            let length = CGFloat((cell.detailTextLabel?.text?.characters.count)!)
+            let interestingColor = UIColor.init(hue: length/100, saturation: 40, brightness: 90, alpha: 0.2)
+            cell.viewOfInterest.backgroundColor = interestingColor
+            cell.viewOfInterest.alpha = 1.0
+            cell.viewOfInterest.layer.cornerRadius = 8.0
         } else {
             cell.textLabel?.text = ""
             cell.detailTextLabel?.text = ""
         }
-
         return cell
     }
 

@@ -384,7 +384,7 @@
                                 <rect key="frame" x="20" y="64" width="560" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" textLabel="9IL-oS-UXC" detailTextLabel="kLE-o3-s4k" style="IBUITableViewCellStyleSubtitle" id="z2J-lV-DO7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" textLabel="9IL-oS-UXC" detailTextLabel="kLE-o3-s4k" style="IBUITableViewCellStyleSubtitle" id="z2J-lV-DO7" customClass="OTMTableViewCell" customModule="On_the_Map" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="560" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z2J-lV-DO7" id="O1V-tP-3zI">
@@ -405,8 +405,15 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jf7-Ne-Z9S">
+                                                    <rect key="frame" x="8" y="25" width="560" height="18"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="viewOfInterest" destination="Jf7-Ne-Z9S" id="48h-Ng-K9j"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
